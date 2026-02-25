@@ -6,6 +6,10 @@ import { componentTagger } from "lovable-tagger";
 export default defineConfig(({ mode }) => ({
   base: "/my-certificate-vault/",
 
+  build: {
+    sourcemap: true, // 🔥 ativa sourcemap para debug em produção
+  },
+
   server: {
     host: "::",
     port: 8080,
