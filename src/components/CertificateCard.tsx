@@ -21,43 +21,56 @@ const categoryColors: Record<string, string> = {
 const CertificateCard = ({ certificate, onDelete, index }: CertificateCardProps) => {
   return (
     <div
-      className="group relative bg-card border border-border rounded-lg p-5 shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 animate-fade-in"
+      className="group relative bg-card border border-border rounded-lg overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 animate-fade-in"
       style={{ animationDelay: `${index * 80}ms` }}
     >
-      {/* Delete button */}
-      <button
-        onClick={() => onDelete(certificate.id)}
-        className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity p-1.5 rounded-md hover:bg-destructive/10 text-muted-foreground hover:text-destructive"
-        aria-label="Remover certificado"
-      >
-        <Trash2 className="w-4 h-4" />
-      </button>
-
-      {/* Category badge */}
-      <span
-        className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-medium mb-3 ${
-          categoryColors[certificate.category] || categoryColors.Outros
-        }`}
-      >
-        {certificate.category}
-      </span>
-
-      {/* Title */}
-      <h3 className="font-display text-lg font-semibold text-card-foreground mb-3 pr-6 leading-tight">
-        {certificate.title}
-      </h3>
-
-      {/* Meta */}
-      <div className="space-y-1.5">
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <Building2 className="w-3.5 h-3.5" />
-          <span>{certificate.issuer}</span>
+      {/* Certificate image */}
+      {certificate.imageUrl && (
+        <div className="w-full h-44 overflow-hidden bg-muted">
+          <img
+            src={certificate.imageUrl}
+            alt={`Certificado: ${certificate.title}`}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          />
         </div>
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <Calendar className="w-3.5 h-3.5" />
-          <span>
-            {format(new Date(certificate.date), "dd MMM yyyy", { locale: ptBR })}
-          </span>
+      )}
+
+      <div className="p-5">
+        {/* Delete button */}
+        <button
+          onClick={() => onDelete(certificate.id)}
+          className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity p-1.5 rounded-md bg-card/80 backdrop-blur-sm hover:bg-destructive/10 text-muted-foreground hover:text-destructive"
+          aria-label="Remover certificado"
+        >
+          <Trash2 className="w-4 h-4" />
+        </button>
+
+        {/* Category badge */}
+        <span
+          className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-medium mb-3 ${
+            categoryColors[certificate.category] || categoryColors.Outros
+          }`}
+        >
+          {certificate.category}
+        </span>
+
+        {/* Title */}
+        <h3 className="font-display text-lg font-semibold text-card-foreground mb-3 pr-6 leading-tight">
+          {certificate.title}
+        </h3>
+
+        {/* Meta */}
+        <div className="space-y-1.5">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <Building2 className="w-3.5 h-3.5" />
+            <span>{certificate.issuer}</span>
+          </div>
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <Calendar className="w-3.5 h-3.5" />
+            <span>
+              {format(new Date(certificate.date), "dd MMM yyyy", { locale: ptBR })}
+            </span>
+          </div>
         </div>
       </div>
 
