@@ -4,10 +4,10 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 
 export default defineConfig(({ mode }) => ({
-  base: "/my-certificate-vault/",
+  base: mode === "production" ? "/my-certificate-vault/" : "/",
 
   build: {
-    sourcemap: true, // 🔥 ativa sourcemap para debug em produção
+    sourcemap: true,
   },
 
   server: {
